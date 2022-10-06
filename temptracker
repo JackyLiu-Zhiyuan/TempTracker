@@ -1,0 +1,46 @@
+class TempTracker(object):
+    def __init__(self):
+        self.items = []
+        self.max = -float('inf')
+        self.min = float('inf')
+        self.counter = 0
+        self.cumulativeSum = 0
+        self.frequencies = [0]*150
+        self.highestFrequency = 0
+        self.mode = None
+
+    def add(self, val):
+        self.items.append(val)
+        self.max = max(self.max, val)
+        self.min = min(self.min, val)
+        self.counter += 1
+        self.cumulativeSum += val
+        self.frequencies[val] += 1
+        if self.highestFrequency < self.frequencies[val]:
+            self.mode = val
+            self.highestFrequency = self.frequencies[val]
+
+    def get_max(self):
+        return self.max
+
+    def get_min(self):
+        return self.min
+
+    def get_mean(self):
+        return self.cumulativeSum/self.counter
+
+    def get_mode(self):
+        return self.mode
+
+my_temp = TempTracker()
+my_temp.add(10)
+my_temp.add(10)
+my_temp.add(20)
+my_temp.add(30)
+my_temp.add(40)
+my_temp.add(50)
+my_temp.add(60)
+print(my_temp.get_max())
+print(my_temp.get_min())
+print(my_temp.get_mean())
+print(my_temp.get_mode())
